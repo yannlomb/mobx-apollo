@@ -20,7 +20,7 @@ class Store {
 
 const store = new Store();
 
-autorun(() => console.log(store.allPosts)); // [{ title: 'Hello World!' }];
+autorun(() => console.log(store.allPosts)); // [{ title: 'Hello World!' }]
 ```
 
 See [example](https://github.com/sonaye/mobx-apollo/tree/master/example).
