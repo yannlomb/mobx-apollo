@@ -1,0 +1,9 @@
+# project: <project>
+# version: 0
+
+type Post implements Node {
+  createdAt: DateTime!
+  id: ID! @isUnique
+  updatedAt: DateTime!
+  title: String!
+}
