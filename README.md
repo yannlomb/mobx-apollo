@@ -11,7 +11,6 @@ class Store {
   @query allPosts = {
     client: apolloClientInstance, // new ApolloClient(..)
     query: gqlInstance, // gql`..`
-    multiple: boolean, // default is a single query
     onError: Function,
     onFetch: Function, // invoked every time new data is fetched
     ...watchQueryOptions // (see Apollo Client docs)
