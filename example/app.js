@@ -10,7 +10,6 @@ export default (class extends Component {
       () =>
         this.props.postsStore
           .createPost('Hello World!')
-          // .then(() => console.log('Added data!'))
           .catch(error => console.log(error.message)),
       2500
     );

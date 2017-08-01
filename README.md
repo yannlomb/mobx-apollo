@@ -1,7 +1,7 @@
 # mobx-apollo
 
 # Installation
-`yarn add mobx-apollo`
+`yarn add mobx mobx-utils mobx-apollo`
 
 # Usage
 ```javascript

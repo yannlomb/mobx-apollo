@@ -8,9 +8,7 @@ export default new class {
   allPosts = {
     client,
     query: allPosts,
-    // multiple: true, // default is a single query
     onError: error => console.log(error.message)
-    // onFetch: (/* data */) => console.log('Received data!')
   };
 
   createPost = title =>

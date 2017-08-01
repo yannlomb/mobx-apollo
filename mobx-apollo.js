@@ -1,4 +1,4 @@
-import { computed, observable } from 'mobx';
+import { computed } from 'mobx';
 import { fromResource } from 'mobx-utils';
 
 const queryToObservable = (query, { multiple, onError, onFetch, prop }) => {
@@ -8,7 +8,7 @@ const queryToObservable = (query, { multiple, onError, onFetch, prop }) => {
     sink =>
       (subscription = query.subscribe({
         next: ({ data }) => {
-          sink(observable(multiple === true ? data : data[prop]));
+          sink(multiple === true ? data : data[prop]);
           onFetch && onFetch(data);
         },
         error: error => onError && onError(error)
@@ -26,7 +26,7 @@ export const query = (obj, prop, descriptor) => {
     ...options
   } = descriptor.initializer();
 
-  const privateName = `${prop}Subscription`;
+  const privateName = `_${prop}Subscription`;
 
   Object.defineProperty(obj, privateName, {
     value: queryToObservable(client.watchQuery(options), {
