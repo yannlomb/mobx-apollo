@@ -14,7 +14,12 @@ class Store {
     onError: Function,
     onFetch: Function, // invoked every time new data is fetched
     ...watchQueryOptions // (see Apollo Client docs)
-  };
+};
+
+  // or without decorators
+  constructor() {
+    query(this, 'allPosts', { /* ...options */ });
+  }
 }
 
 const store = new Store();

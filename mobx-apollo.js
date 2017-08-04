@@ -1,4 +1,4 @@
-import { computed } from 'mobx';
+import { computed, extendObservable } from 'mobx';
 import { fromResource } from 'mobx-utils';
 
 const queryToObservable = (query, { onError, onFetch, prop }) => {
@@ -18,7 +18,11 @@ const queryToObservable = (query, { onError, onFetch, prop }) => {
 };
 
 export const query = (obj, prop, descriptor) => {
-  const { client, onError, onFetch, ...options } = descriptor.initializer();
+  const decorated = descriptor.initializer;
+
+  const { client, onError, onFetch, ...options } = decorated
+    ? descriptor.initializer()
+    : descriptor;
 
   const privateName = `_${prop}Subscription`;
 
@@ -30,9 +34,14 @@ export const query = (obj, prop, descriptor) => {
     })
   });
 
-  return computed(obj, prop, {
-    get() {
-      return this[privateName].current();
-    }
+  if (decorated)
+    return computed(obj, prop, {
+      get() {
+        return this[privateName].current();
+      }
+    });
+
+  extendObservable(obj, {
+    [prop]: computed(() => obj[privateName].current())
   });
 };
