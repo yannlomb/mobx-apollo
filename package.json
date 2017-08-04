@@ -1,7 +1,7 @@
 {
   "name": "mobx-apollo",
   "description": "A MobX and Apollo Client integration utility.",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "main": "./lib/index.js",
   "repository": {
     "type": "git",

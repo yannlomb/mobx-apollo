@@ -20,13 +20,13 @@ const queryToObservable = (query, { onError, onFetch, prop }) => {
 export const query = (obj, prop, descriptor) => {
   const decorated = descriptor.initializer;
 
+  const privateName = `_${prop}`;
+
   const { client, onError, onFetch, ...options } = decorated
     ? descriptor.initializer()
     : descriptor;
 
-  const privateName = `_${prop}`;
-
-  const value = extendObservable(obj, {
+  const ref = extendObservable(obj, {
     [privateName]: queryToObservable(client.watchQuery(options), {
       onError,
       onFetch,
@@ -35,5 +35,5 @@ export const query = (obj, prop, descriptor) => {
     [prop]: computed(() => obj[privateName].current())
   });
 
-  if (decorated) return value;
+  if (decorated) return ref;
 };
