@@ -24,24 +24,16 @@ export const query = (obj, prop, descriptor) => {
     ? descriptor.initializer()
     : descriptor;
 
-  const privateName = `_${prop}Subscription`;
+  const privateName = `_${prop}`;
 
-  Object.defineProperty(obj, privateName, {
-    value: queryToObservable(client.watchQuery(options), {
+  const value = extendObservable(obj, {
+    [privateName]: queryToObservable(client.watchQuery(options), {
       onError,
       onFetch,
       prop
-    })
-  });
-
-  if (decorated)
-    return computed(obj, prop, {
-      get() {
-        return this[privateName].current();
-      }
-    });
-
-  extendObservable(obj, {
+    }),
     [prop]: computed(() => obj[privateName].current())
   });
+
+  if (decorated) return value;
 };

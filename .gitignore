@@ -1,2 +1,5 @@
 lib/
 node_modules/
+yarn-debug.log*
+yarn-error.log*
+yarn.lock
