@@ -7,18 +7,20 @@
 ```javascript
 import { query } from 'mobx-apollo';
 
-class Store {
-  @query allPosts = {
-    client: apolloClientInstance, // new ApolloClient(..)
-    query: gqlInstance, // gql`..`
-    onError: Function,
-    onFetch: Function, // invoked every time new data is fetched
-    ...watchQueryOptions // (see Apollo Client docs)
+type options = {
+  client: apolloClientInstance, // new ApolloClient()
+  query: gqlInstance, // gql`..`
+  onError: Function,
+  onFetch: Function, // invoked every time new data is fetched
+  ...watchQueryOptions // (see Apollo Client docs)
 };
+
+class Store {
+  @query allPosts = { ...options };
 
   // or without decorators
   constructor() {
-    query(this, 'allPosts', { /* ...options */ });
+    query(this, 'allPosts', { ...options });
   }
 }
 
