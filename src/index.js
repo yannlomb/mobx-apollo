@@ -1,7 +1,7 @@
 import { computed, extendObservable } from 'mobx';
 import { fromResource } from 'mobx-utils';
 
-const queryToObservable = (query, { onError, onFetch, prop }) => {
+export const queryToObservable = (query, { onError, onFetch, prop }) => {
   let subscription;
 
   return fromResource(
